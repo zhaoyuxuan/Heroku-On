@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Heroku On</title>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="cotainer-fluid">
+    <div class="row">
+        <div class="text-center center-block" id="header">
+            <span id="title">Heroku ON</span><br>
+            <span id="subtitle">Keeps a free verified heroku instance up and running 24/7</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-xs-2"></div>
+        <div class="col-md-6 col-xs-8">
+            <div class="row">
+                <div id="website">
+                    <span class="input_title">Enter Website</span>
+                    <h1 class="input_bar">
+                        <input class="input_field" id="website_input" name="website_input" type="text" onclick="generatelink();"></input>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-xs-2"></div>
+        <div class="col-md-6 col-xs-8">
+            <div class="row">
+                <div id="verification">
+                    <span class="input_title">Verification ..... </span>
+                    <h1 class="input_bar">
+                        <input class="input_field" id="verification_input" name="verification_input" type="text" disabled></input>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-2"></div>
+    </div>
+    <input type="image" src="static/images/submit_button.svg" onclick="checklink();" id="submit_button" class="center-block" />
+
+</body>
+
+
+<style>
+#header{
+    padding-top: 50px;
+}
+#title{
+    color: #4D6864;
+    font-family: "Avenir Next";
+    font-size: 60px;
+    font-weight: 100;
+    letter-spacing: -4.5px;
+}
+#subtitle{
+    font-family: "Avenir Next";
+    font-size: 17px;
+    font-weight: 300;
+    letter-spacing: -1.1px;
+    color: #4D6864;
+}
+#website{
+    padding-top: 100px;
+}
+#verification{
+    padding-top: 70px;
+    padding-bottom: 100px;
+}
+
+.input_title{
+    position: absolute;
+    font-family: "Avenir Next";
+    font-weight: 300;
+    font-size: 1.8em;
+    color: #4D6864;
+    letter-spacing: -0.5px;
+    /*margin-top: 10px;*/
+
+}
+.input_bar{
+    width: 100%;
+}
+.input_field{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 150px;
+    font-family: "Avenir Next";
+    font-weight: 400;
+    font-size: 1.5em;
+    letter-spacing: -1.5px;
+    color: #4D6864;
+    background-color: #F1FAF9;
+    border: 0;
+    outline: none !important;
+}
+#button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+</style>
+
+
+<script>
+
+
+function generatelink(){
+
+  var key;
+
+  $.ajax({
+      type: "GET",
+      url: "/generate",
+      success: function(response){
+        key=response;
+
+      }
+
+  });
+
+    $('#website_input').on('input',function() {
+      var firstinput=document.getElementById('website_input');
+      document.getElementById('verification_input').value=firstinput.value+"/"+key;
+
+    // do something
+});
+
+
+}
+function checklink(){
+  var formData = new FormData();
+  var firstinput=document.getElementById('website_input').value;
+  formData.append("input_web", firstinput);
+
+  $.ajax({
+    type:"POST",
+    url:"/checkurl",
+    data:formData,
+    contentType: false,
+    processData: false,
+    success:
+      function(response){
+        if(response==="yes"){
+          console.log("haha");
+        }
+        else{
+          console.log("crying");
+        }
+      }
+  })
+
+}
+</script>
+
+
+</html>
+<!--
+
+#phoneBarTitle{
+    position: absolute;
+    font-family: "BG";
+    font-weight: 700;
+    font-size: 1.9em;
+    color: #463C70;
+    margin-top: 5px;
+}
+
+#phoneBar{
+    width: 100%;
+}
+
+#phoneInput{
+    width: 100%;
+    height: 100px;
+    font-family: "BG";
+    font-weight: 300;
+    font-size: 1.5em;
+    color: #463C70;
+    background-color: #F7F3FF;
+    border: 0;
+    outline: none !important;
+} -->
