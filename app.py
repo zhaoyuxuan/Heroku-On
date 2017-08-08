@@ -17,6 +17,11 @@ def index():
 def generate():
     code=''.join(choice(ascii_lowercase) for i in range(12))
     return code
+@app.route('/loaderio-c3b7a65412078c2e7124069686a0188f')
+def verification():
+    return "loaderio-c3b7a65412078c2e7124069686a0188f"
+
+
 
 @app.route('/checkurl', methods=["POST"])
 def check():
@@ -24,7 +29,7 @@ def check():
     try:
         webchecking = requests.get(link["input_web"],verify=False)
 
-        
+
     except:
         return "not a website"
 
