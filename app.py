@@ -17,6 +17,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 class WEBSITE(db.Model):
+    __tablename__ = 'WEBSITE'
     url = db.Column(Text)
 
     def __init__(self, url):
