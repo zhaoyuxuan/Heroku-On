@@ -25,14 +25,14 @@
                 <div id="website">
                     <span class="input_title">Enter Website</span>
                     <h1 class="input_bar">
-                        <input class="input_field" id="website_input" name="website_input" type="text" onclick="generatelink();"></input>
+                        <input class="input_field" id="website_input" name="website_input" type="text" ></input>
                     </h1>
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-xs-2"></div>
     </div>
-    <div class="row">
+    <div class="row" id="second" style="display:none">
         <div class="col-md-3 col-xs-2"></div>
         <div class="col-md-6 col-xs-8">
             <div class="row">
@@ -46,127 +46,135 @@
         </div>
         <div class="col-md-3 col-xs-2"></div>
     </div>
-    <input type="image" src="static/images/submit_button.svg" onclick="checklink();" id="submit_button" class="center-block" />
-
+    <input type="image" src="static/images/submit_button.svg" onclick="generatelink();" id="submit_button" class="center-block" />
+    <input type="image" src="static/images/submit_button.svg" onclick="checklink();" id="verify_button" class="center-block" style="display:none;" />
+    <div class='text-center center-block' style="  color: #4D6864;font-family: 'Avenir Next'; position: fixed;bottom: 0; width: 100%;">Made by Yuxuan Zhao </div>
 </body>
 
 
 <style>
-#header{
-    padding-top: 50px;
-}
-#title{
-    color: #4D6864;
-    font-family: "Avenir Next";
-    font-size: 60px;
-    font-weight: 100;
-    letter-spacing: -4.5px;
-}
-#subtitle{
-    font-family: "Avenir Next";
-    font-size: 17px;
-    font-weight: 300;
-    letter-spacing: -1.1px;
-    color: #4D6864;
-}
-#website{
-    padding-top: 100px;
-}
-#verification{
-    padding-top: 70px;
-    padding-bottom: 100px;
-}
+    #header {
+        padding-top: 50px;
+    }
 
-.input_title{
-    position: absolute;
-    font-family: "Avenir Next";
-    font-weight: 300;
-    font-size: 1.8em;
-    color: #4D6864;
-    letter-spacing: -0.5px;
-    /*margin-top: 10px;*/
+    #title {
+        color: #4D6864;
+        font-family: "Avenir Next";
+        font-size: 60px;
+        font-weight: 100;
+        letter-spacing: -4.5px;
+    }
 
-}
-.input_bar{
-    width: 100%;
-}
-.input_field{
-    margin-top: 15px;
-    margin-bottom: 15px;
-    width: 100%;
-    height: 150px;
-    font-family: "Avenir Next";
-    font-weight: 400;
-    font-size: 1.5em;
-    letter-spacing: -1.5px;
-    color: #4D6864;
-    background-color: #F1FAF9;
-    border: 0;
-    outline: none !important;
-}
-#button{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
+    #subtitle {
+        font-family: "Avenir Next";
+        font-size: 17px;
+        font-weight: 300;
+        letter-spacing: -1.1px;
+        color: #4D6864;
+    }
 
+    #website {
+        padding-top: 100px;
+    }
+
+    #verification {
+        padding-top: 70px;
+        padding-bottom: 100px;
+    }
+
+    .input_title {
+        position: absolute;
+        font-family: "Avenir Next";
+        font-weight: 300;
+        font-size: 1.8em;
+        color: #4D6864;
+        letter-spacing: -0.5px;
+        /*margin-top: 10px;*/
+    }
+
+    .input_bar {
+        width: 100%;
+    }
+
+    .input_field {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+        height: 150px;
+        font-family: "Avenir Next";
+        font-weight: 400;
+        font-size: 1.5em;
+        letter-spacing: -1.5px;
+        color: #4D6864;
+        background-color: #F1FAF9;
+        border: 0;
+        outline: none !important;
+    }
+
+    #button {
+        background-color: #4CAF50;
+        /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
 </style>
 
 
 <script>
+    function generatelink() {
+        document.getElementById("website_input").disabled = true;
+        var formData = new FormData();
+        var website_url = document.getElementById('website_input').value;
+        formData.append("input_url", website_url);
+
+        $.ajax({
+            type: "POST",
+            url: "/generate",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response === "not a website") {
+                    document.getElementById('website_input').style.backgroundColor = "#ff8a80";
+                } else {
+                    document.getElementById('verification_input').value = website_url + "/" + response;
+                    document.getElementById('second').style.display = "block";
+                    document.getElementById('submit_button').style.display = "none";
+
+                    document.getElementById('verify_button').style.display = "block";
 
 
-function generatelink(){
+                }
 
-  var key;
+            }
 
-  $.ajax({
-      type: "GET",
-      url: "/generate",
-      success: function(response){
-        key=response;
-
-      }
-
-  });
-
-    $('#website_input').on('input',function() {
-      var firstinput=document.getElementById('website_input');
-      document.getElementById('verification_input').value=firstinput.value+"/"+key;
-
-    // do something
-});
+        });
 
 
-}
-function checklink(){
-  var formData = new FormData();
-  var firstinput=document.getElementById('website_input').value;
-  formData.append("input_web", firstinput);
 
-  $.ajax({
-    type:"POST",
-    url:"/checkurl",
-    data:formData,
-    contentType: false,
-    processData: false,
-    success:
-      function(response){
-        if(response==="yes"){
-          console.log("haha");
-        }
-        else{
-          console.log("crying");
-        }
-      }
-  })
+    }
 
-}
+    function checklink() {
+        var formData = new FormData();
+        var website_url = document.getElementById("verification_input").value;
+        formData.append("website_url", website_url);
+
+
+        $.ajax({
+            type: "POST",
+            url: "/checkurl",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {}
+        })
+
+    }
 </script>
 
 
