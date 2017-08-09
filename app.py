@@ -16,7 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
-class Website(db.Model):
+class WEBSITE(db.Model):
     url = db.Column(Text)
 
     def __init__(self, url):
@@ -64,7 +64,7 @@ def check():
     url=request.form["website"]
     if (webcode in link["input_check"]):
         print(1)
-        data=Website(url)
+        data=WEBSITE(url)
         db.session.add(data)
         db.session.commit()
         return "it is in the website"
