@@ -9,6 +9,7 @@ from sqlalchemy import Text
 
 
 
+
 app = Flask(__name__)
 
 
@@ -18,10 +19,8 @@ db = SQLAlchemy(app)
 
 class WEBSITE(db.Model):
     __tablename__ = 'WEBSITE'
-    __table_args__ = (
-        PrimaryKeyConstraint('url'),
-    )
-    url = db.Column(Text)
+
+    url = db.Column(Text, primary_key=True)
 
     def __init__(self, url):
         self.url = url
