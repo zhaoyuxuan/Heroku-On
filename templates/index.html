@@ -162,7 +162,10 @@
     function checklink() {
         var formData = new FormData();
         var website_url = document.getElementById("verification_input").value;
+        var website = document.getElementById("website_input").value;
         formData.append("website_url", website_url);
+        formData.append("website", website);
+
 
 
         $.ajax({

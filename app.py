@@ -11,6 +11,16 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
+class Website(db.Model):
+    url = db.Column(db.text)
+
+    def __init__(self, url):
+        self.url = url
+
+    def __repr__(self):
+        return '<Name %r>' % self.name
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -46,8 +56,12 @@ def check():
     link = request.form["input_check"]
     webchecking = requests.get(link,verify=False)
     webcode=webchecking.text
+    url=request.form["website"]
     if (webcode in link["input_check"]):
         print(1)
+        data=Website(url)
+        db.session.add(data)
+        db.session.commit()
         return "it is in the website"
     else:
         print(2)
