@@ -18,6 +18,9 @@ db = SQLAlchemy(app)
 
 class WEBSITE(db.Model):
     __tablename__ = 'WEBSITE'
+    __table_args__ = (
+        PrimaryKeyConstraint('url'),
+    )
     url = db.Column(Text)
 
     def __init__(self, url):
