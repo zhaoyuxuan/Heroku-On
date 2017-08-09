@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 
+
 app = Flask(__name__)
 
 
@@ -15,7 +16,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 class Website(db.Model):
-    url = db.Column(TEXT)
+    url = db.Column(Text)
 
     def __init__(self, url):
         self.url = url
