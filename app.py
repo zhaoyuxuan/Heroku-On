@@ -1,7 +1,7 @@
 from flask import Flask,render_template,request,redirect,url_for
 import requests,os
 import hashlib
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy,TEXT
 
 
 
@@ -11,11 +11,11 @@ app = Flask(__name__)
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 class Website(db.Model):
-    url = db.Column(db.text)
+    url = db.Column(TEXT)
 
     def __init__(self, url):
         self.url = url
