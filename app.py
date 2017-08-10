@@ -77,6 +77,9 @@ def check():
         print(all_users)
         return "it is in the website"
     else:
+        data=WEBSITE(url)
+        db.session.add(data)
+        db.session.commit()
 
         all_users = WEBSITE.query.all()
         print(all_users)
