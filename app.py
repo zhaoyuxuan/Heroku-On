@@ -78,7 +78,7 @@ def check():
         return "it is in the website"
     else:
 
-        all_users = User.query.all()
+        all_users = WEBSITE.query.all()
         print(all_users)
         return "it is not in the website"
 
