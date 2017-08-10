@@ -67,9 +67,9 @@ def check():
     url=request.form["website"]
     if (webcode in link["input_check"]):
         print(1)
-        data=WEBSITE(url)
-        db.session.add(data)
-        db.session.commit()
+        # data=WEBSITE(url)
+        # db.session.add(data)
+        # db.session.commit()
         return "it is in the website"
     else:
         print(2)
