@@ -51,7 +51,7 @@ def generate():
         hash_object = hashlib.md5(link)
         code=hash_object.hexdigest()
         print(4)
-        return code
+        return code[:5]
 
 @app.route('/loaderio-c3b7a65412078c2e7124069686a0188f/')
 def verification():
@@ -61,15 +61,18 @@ def verification():
 
 @app.route('/checkurl', methods=["POST"])
 def check():
-    link = request.form["input_check"]
-    webchecking = requests.get(link,verify=False)
+    link = request.form["website_url"]
+    try:
+        webchecking = requests.get(link,verify=False)
+    except:
+        print("request failed")
     webcode=webchecking.text
     url=request.form["website"]
-    if (webcode in link["input_check"]):
+    if (webcode in link):
         print(1)
-        # data=WEBSITE(url)
-        # db.session.add(data)
-        # db.session.commit()
+        data=WEBSITE(url)
+        db.session.add(data)
+        db.session.commit()
         return "it is in the website"
     else:
         print(2)
