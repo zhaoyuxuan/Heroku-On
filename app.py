@@ -82,7 +82,7 @@ def check():
             db.session.add(data)
             db.session.commit()
         except:
-            print("all already exist)
+            print("all already exist")
             return "all already exist"
 
         all_users = WEBSITE.query.all()
