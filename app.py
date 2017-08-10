@@ -26,7 +26,7 @@ class WEBSITE(db.Model):
         self.url = url
 
     def __repr__(self):
-        return '<Name %r>' % self.name
+        return '<Name %r>' % self.url
 
 
 @app.route('/')
