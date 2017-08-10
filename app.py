@@ -73,6 +73,8 @@ def check():
         data=WEBSITE(url)
         db.session.add(data)
         db.session.commit()
+        all_users = User.query.all()
+        print(all_users)
         return "it is in the website"
     else:
         print(2)
