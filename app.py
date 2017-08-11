@@ -83,10 +83,11 @@ def check():
             db.session.commit()
         except:
             print("all already exist")
-            
+            all_users = WEBSITE.query.all()
+            print(all_users.url)
 
-        all_users = WEBSITE.query.all()
-        print(all_users)
+
+
         return "it is not in the website"
 
 
