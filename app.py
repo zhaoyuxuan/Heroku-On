@@ -26,7 +26,7 @@ urls=["http://urls.yuxuanz.com/"];
 class WEBSITE(db.Model):
     __tablename__ = 'WEBSITE'
 
-    url = db.Column(Text, primary_key=True)
+    url = db.Column("url",db.Text, primary_key=True)
 
     def __init__(self, url):
         self.url = url
