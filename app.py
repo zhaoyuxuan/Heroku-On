@@ -6,7 +6,7 @@ from sqlalchemy import Text
 import grequests
 import validators
 import psycopg2
-import sys
+import sys,json
 
 
 app = Flask(__name__)
@@ -58,11 +58,12 @@ def verification():
 
 @app.route("/test")
 def test():
-    output = ""
+    websites = []
     all_users = WEBSITE.query.all()
     for i in range(len(all_users)):
+        websites.append(all_users[i].url)
         output += all_users[i].url + "\n"
-
+    output=json.dump(websites)
     return output
 
 
