@@ -62,7 +62,7 @@ def test():
     all_users = WEBSITE.query.all()
     for i in range(len(all_users)):
         websites.append(all_users[i].url)
-        output += all_users[i].url + "\n"
+        
     output=json.dump(websites)
     return output
 
