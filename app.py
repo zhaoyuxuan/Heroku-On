@@ -86,7 +86,7 @@ def check():
             for i in range(len(all_users)):
                 print(all_users[i].url)
 
-
+        db.session.close()
         return "it is in the website"
     else:
         data=WEBSITE(url)
