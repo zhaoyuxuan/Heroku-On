@@ -62,8 +62,10 @@ def test():
     all_users = WEBSITE.query.all()
     for i in range(len(all_users)):
         websites.append(all_users[i].url)
+    rs = (grequests.get(u) for u in websites)
+    grequests.map(rs)
 
-    return jsonify(websites+websites)
+    return "1"
 
 
 # @app.route('/checkurl', methods=["POST"])
