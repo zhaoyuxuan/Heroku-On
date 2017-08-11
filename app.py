@@ -75,6 +75,7 @@ def check():
             db.session.add(data)
             db.session.commit()
         except:
+            print("2")
             all_users = WEBSITE.query.all()
             print(all_users.url)
 
