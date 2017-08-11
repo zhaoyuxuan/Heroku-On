@@ -30,7 +30,7 @@ class WEBSITE(db.Model):
 
     def __repr__(self):
         return '<Name %r>' % self.url
-
+db.create_all()
 
 @app.route('/')
 def index():
