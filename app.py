@@ -83,6 +83,9 @@ def check():
             data=WEBSITE(url)
             db.session.add(data)
             db.session.commit()
+            all_users = WEBSITE.query.all()
+            for i in range(len(all_users)):
+                print(all_users[i].url)
             print("it is saved")
         except:
             db.session.rollback()
