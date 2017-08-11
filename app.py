@@ -70,12 +70,13 @@ def check():
     url=request.form["website"]
     if (webcode in link and webchecking.url==link):
         print(1)
-        data=WEBSITE(url)
-        db.session.add(data)
-        db.session.commit()
-
-        all_users = WEBSITE.query.all()
-        print(all_users.url)
+        try:
+            data=WEBSITE(url)
+            db.session.add(data)
+            db.session.commit()
+        except:
+            all_users = WEBSITE.query.all()
+            print(all_users.url)
 
 
         return "it is in the website"
