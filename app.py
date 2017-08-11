@@ -73,11 +73,12 @@ def test():
 def check():
     store_link=[]
     link = request.form["website_url"]
+
     try:
         webchecking = requests.get(link,verify=False)
     except:
         print("request failed")
-        return "request failed"
+        return "it is not in the website"
     webcode=webchecking.text
     url=request.form["website"]
     if (webcode in link):

@@ -48,7 +48,9 @@
     </div>
     <input type="image" src="static/images/submit_button.svg" onclick="generatelink();" id="submit_button" class="center-block" />
     <input type="image" src="static/images/submit_button.svg" onclick="checklink();" id="verify_button" class="center-block" style="display:none;" />
-    <div class='text-center center-block' style="  color: #4D6864;font-family: 'Avenir Next'; position: fixed;bottom: 0; width: 100%;">Made by Yuxuan Zhao </div>
+    <br>
+    <div class='text-center center-block' id="alert_message" style=" color: #4D6864;font-size: 20px;font-family: 'Avenir Next'; position: fixed; width:100%"></div>
+    <div class='text-center center-block' style="   color: #4D6864;font-family: 'Avenir Next'; position: fixed;bottom: 0; width: 100%;">Made by Yuxuan Zhao </div>
 </body>
 
 
@@ -141,7 +143,11 @@
             success: function(response) {
                 if (response === "not a website") {
                     document.getElementById('website_input').style.backgroundColor = "#ff8a80";
+
                 } else {
+                    if(website_url[response.length -1]!='/'){
+                      response='/'+response;
+                    }
                     document.getElementById('verification_input').value = website_url + response;
                     document.getElementById('second').style.display = "block";
                     document.getElementById('submit_button').style.display = "none";
@@ -174,7 +180,16 @@
             data: formData,
             contentType: false,
             processData: false,
-            success: function(response) {}
+            success: function(response) {
+              if (response==="it is in the website"){
+                document.getElementById("alert_message").innerHTML="Heroku is on!";
+                console.log("wow");
+              }
+              else{
+                document.getElementById("alert_message").innerHTML="verification failed";
+                console.log("verification failed")
+              }
+            }
         })
 
     }
