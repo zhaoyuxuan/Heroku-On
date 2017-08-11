@@ -5,11 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Text
 import grequests
 import validators
-
-
-
-
-
+import psycopg2
+import sys
 
 
 app = Flask(__name__)
@@ -59,6 +56,14 @@ def generate():
 def verification():
     return "loaderio-c3b7a65412078c2e7124069686a0188f"
 
+@app.route("/test")
+def test():
+    output = ""
+    all_users = WEBSITE.query.all()
+    for i in range(len(all_users)):
+        output += all_users[i].url + "\n"
+
+    return output
 
 
 @app.route('/checkurl', methods=["POST"])
@@ -72,7 +77,7 @@ def check():
         return "request failed"
     webcode=webchecking.text
     url=request.form["website"]
-    if (webcode in link and webchecking.url==link):
+    if (webcode in link):
         print(1)
         try:
             data=WEBSITE(url)
