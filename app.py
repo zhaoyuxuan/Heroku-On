@@ -63,61 +63,45 @@ def test():
     for i in range(len(all_users)):
         websites.append(all_users[i].url)
     rs = (grequests.get(u) for u in websites)
+    print(websites)
     grequests.map(rs)
 
     return "1"
 
 
-# @app.route('/checkurl', methods=["POST"])
-# def check():
-#     store_link=[]
-#     link = request.form["website_url"]
-#     try:
-#         webchecking = requests.get(link,verify=False)
-#     except:
-#         print("request failed")
-#         return "request failed"
-#     webcode=webchecking.text
-#     url=request.form["website"]
-#     if (webcode in link):
-#         print(1)
-#         try:
-#             data=WEBSITE(url)
-#             db.session.add(data)
-#             db.session.commit()
-#             all_users = WEBSITE.query.all()
-#             for i in range(len(all_users)):
-#                 print(all_users[i].url)
-#             print("it is saved")
-#         except:
-#             db.session.rollback()
-#             print("2")
-#             all_users = WEBSITE.query.all()
-#             for i in range(len(all_users)):
-#                 print(all_users[i].url)
-#
-#         db.session.close()
-#         return "it is in the website"
-#     else:
-#         data=WEBSITE(url)
-#         db.session.add(data)
-#         db.session.commit()
-        # try:
-        #     print("start")
-        #     data=WEBSITE(url)
-        #     db.session.add(data)
-        #     db.session.commit()
-        #     print("not already exist")
-        #     # all_users = WEBSITE.query.all()
-        #     # for i in range(len(all_users)):
-        #     #     print(all_users[i].url + "\n")
-        #     # print("end")
-        # except:
-        #     db.session.rollback()
-        #     print("all already exist")
-        #     all_users = WEBSITE.query.all()
-        #     print(all_users[0].url)
-        # return "it is not in the website"
+@app.route('/checkurl', methods=["POST"])
+def check():
+    store_link=[]
+    link = request.form["website_url"]
+    try:
+        webchecking = requests.get(link,verify=False)
+    except:
+        print("request failed")
+        return "request failed"
+    webcode=webchecking.text
+    url=request.form["website"]
+    if (webcode in link):
+        print(1)
+        try:
+            data=WEBSITE(url)
+            db.session.add(data)
+            db.session.commit()
+            all_users = WEBSITE.query.all()
+            for i in range(len(all_users)):
+                print(all_users[i].url)
+            print("it is saved")
+        except:
+            db.session.rollback()
+            print("2")
+            all_users = WEBSITE.query.all()
+            for i in range(len(all_users)):
+                print(all_users[i].url)
+
+        db.session.close()
+        return "it is in the website"
+    else:
+        
+        return "it is not in the website"
 
 
 
