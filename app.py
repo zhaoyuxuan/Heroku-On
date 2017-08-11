@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,url_for
+from flask import Flask,render_template,request,redirect,url_for, jsonify
 import requests,os
 import hashlib
 from flask_sqlalchemy import SQLAlchemy
@@ -11,9 +11,9 @@ import sys,json
 
 app = Flask(__name__)
 
-print("COW", os.environ['DATABASE_URL'])
+# print("COW", os.environ['DATABASE_URL'])
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://piijiioaookene:819660e4205df62db5c480c00ab4f1590161aa21c7b546bea6544b92aa2fc2b7@ec2-23-21-220-32.compute-1.amazonaws.com:5432/dbct8eg95erdn7"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 urls=["http://urls.yuxuanz.com/"];
@@ -56,51 +56,50 @@ def generate():
 def verification():
     return "loaderio-c3b7a65412078c2e7124069686a0188f"
 
-@app.route("/test")
+@app.route("/test", methods=["POST"])
 def test():
     websites = []
     all_users = WEBSITE.query.all()
     for i in range(len(all_users)):
         websites.append(all_users[i].url)
-        
-    output=json.dump(websites)
-    return output
+
+    return jsonify(websites+websites)
 
 
-@app.route('/checkurl', methods=["POST"])
-def check():
-    store_link=[]
-    link = request.form["website_url"]
-    try:
-        webchecking = requests.get(link,verify=False)
-    except:
-        print("request failed")
-        return "request failed"
-    webcode=webchecking.text
-    url=request.form["website"]
-    if (webcode in link):
-        print(1)
-        try:
-            data=WEBSITE(url)
-            db.session.add(data)
-            db.session.commit()
-            all_users = WEBSITE.query.all()
-            for i in range(len(all_users)):
-                print(all_users[i].url)
-            print("it is saved")
-        except:
-            db.session.rollback()
-            print("2")
-            all_users = WEBSITE.query.all()
-            for i in range(len(all_users)):
-                print(all_users[i].url)
-
-        db.session.close()
-        return "it is in the website"
-    else:
-        data=WEBSITE(url)
-        db.session.add(data)
-        db.session.commit()
+# @app.route('/checkurl', methods=["POST"])
+# def check():
+#     store_link=[]
+#     link = request.form["website_url"]
+#     try:
+#         webchecking = requests.get(link,verify=False)
+#     except:
+#         print("request failed")
+#         return "request failed"
+#     webcode=webchecking.text
+#     url=request.form["website"]
+#     if (webcode in link):
+#         print(1)
+#         try:
+#             data=WEBSITE(url)
+#             db.session.add(data)
+#             db.session.commit()
+#             all_users = WEBSITE.query.all()
+#             for i in range(len(all_users)):
+#                 print(all_users[i].url)
+#             print("it is saved")
+#         except:
+#             db.session.rollback()
+#             print("2")
+#             all_users = WEBSITE.query.all()
+#             for i in range(len(all_users)):
+#                 print(all_users[i].url)
+#
+#         db.session.close()
+#         return "it is in the website"
+#     else:
+#         data=WEBSITE(url)
+#         db.session.add(data)
+#         db.session.commit()
         # try:
         #     print("start")
         #     data=WEBSITE(url)
@@ -116,7 +115,7 @@ def check():
         #     print("all already exist")
         #     all_users = WEBSITE.query.all()
         #     print(all_users[0].url)
-        return "it is not in the website"
+        # return "it is not in the website"
 
 
 
