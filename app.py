@@ -82,7 +82,8 @@ def check():
             db.session.rollback()
             print("2")
             all_users = WEBSITE.query.all()
-            print(all_users[1].url)
+            for i in range(len(all_users)):
+                print(all_users[i].url)
 
 
         return "it is in the website"
