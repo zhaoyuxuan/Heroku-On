@@ -18,9 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 urls=["http://urls.yuxuanz.com/"];
-def activate_website(urls):
-    rs = (grequests.get(u) for each in urls)
-    grequests.map(rs)
+
 
 
 class WEBSITE(db.Model):
@@ -82,6 +80,7 @@ def check():
             db.session.add(data)
             db.session.commit()
         except:
+            db.session.rollback()
             print("2")
             all_users = WEBSITE.query.all()
             print(all_users.url)
@@ -89,24 +88,24 @@ def check():
 
         return "it is in the website"
     else:
-        try:
-            print("start")
-            data=WEBSITE(url)
-            db.session.add(data)
-            db.session.commit()
-            print("not already exist")
-            all_users = WEBSITE.query.all()
-            for i in range(len(all_users)):
-                print(all_users[i].url + "\n")
-            print("end")
-        except:
-            db.session.rollback()
-            print("all already exist")
-            all_users = WEBSITE.query.all()
-            print(all_users[0].url)
-
-
-
+        data=WEBSITE(url)
+        db.session.add(data)
+        db.session.commit()
+        # try:
+        #     print("start")
+        #     data=WEBSITE(url)
+        #     db.session.add(data)
+        #     db.session.commit()
+        #     print("not already exist")
+        #     # all_users = WEBSITE.query.all()
+        #     # for i in range(len(all_users)):
+        #     #     print(all_users[i].url + "\n")
+        #     # print("end")
+        # except:
+        #     db.session.rollback()
+        #     print("all already exist")
+        #     all_users = WEBSITE.query.all()
+        #     print(all_users[0].url)
         return "it is not in the website"
 
 

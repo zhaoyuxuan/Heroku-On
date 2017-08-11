@@ -15,12 +15,12 @@ conn = psycopg2.connect(
 )
 
 cursor=conn.cursor()
-cursor.execute("SELECT url FROM WEBSITE")
+cursor.execute("SELECT url FROM WEBSITE;")
 urls=cursor.fetchall()
 print(urls)
 
 def activate_website():
-    rs = (grequests.get(each) for each in urls)
+    rs = (grequests.get(each[0]) for each in urls)
     grequests.map(rs)
     print("doing it")
 
