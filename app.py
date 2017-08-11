@@ -4,6 +4,7 @@ import hashlib
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Text
 import grequests
+import validators
 
 
 
@@ -41,13 +42,9 @@ def index():
 @app.route('/generate',methods=["POST"])
 def generate():
     link = request.form["input_url"]
-    try:
-        webchecking = requests.get(link,verify=False)
+    result=validators.url(link, public=False)
 
-    except:
-        print(3)
-        return "not a website"
-    if webchecking.status_code != 200:
+    if not result:
 
         return "not a website"
     else :
