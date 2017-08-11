@@ -85,6 +85,9 @@ def check():
             data=WEBSITE(url)
             db.session.add(data)
             db.session.commit()
+            print("not already exist")
+            all_users = WEBSITE.query.all()
+            print(all_users[0].url)
         except:
             print("all already exist")
             all_users = WEBSITE.query.all()
