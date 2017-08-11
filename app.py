@@ -93,6 +93,7 @@ def check():
                 print(all_users[i].url + "\n")
             print("end")
         except:
+            db.session.rollback()
             print("all already exist")
             all_users = WEBSITE.query.all()
             print(all_users[0].url)
