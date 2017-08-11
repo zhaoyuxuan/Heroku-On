@@ -68,6 +68,7 @@ def check():
         webchecking = requests.get(link,verify=False)
     except:
         print("request failed")
+        return "request failed"
     webcode=webchecking.text
     url=request.form["website"]
     if (webcode in link and webchecking.url==link):
