@@ -100,7 +100,7 @@ def check():
         db.session.close()
         return "it is in the website"
     else:
-        
+        print("it is not in the website")
         return "it is not in the website"
 
 
