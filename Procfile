@@ -1,4 +1,4 @@
 web: gunicorn app:app
-web: python checking.py 
+web: python activate.py 
 init: python db_create.py
 upgrade: python db_upgrade.py
