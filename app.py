@@ -68,7 +68,7 @@ def check():
         print("request failed")
     webcode=webchecking.text
     url=request.form["website"]
-    if (webcode in link):
+    if (webcode in link and webchecking.url==link):
         print(1)
         data=WEBSITE(url)
         db.session.add(data)
@@ -80,7 +80,6 @@ def check():
 
         return "it is in the website"
     else:
-
         try:
             data=WEBSITE(url)
             db.session.add(data)
