@@ -78,6 +78,7 @@ def check():
             data=WEBSITE(url)
             db.session.add(data)
             db.session.commit()
+            print("it is saved")
         except:
             db.session.rollback()
             print("2")
