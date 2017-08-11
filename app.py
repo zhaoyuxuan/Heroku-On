@@ -82,6 +82,7 @@ def check():
         return "it is in the website"
     else:
         try:
+            print("start")
             data=WEBSITE(url)
             db.session.add(data)
             db.session.commit()
