@@ -3,6 +3,7 @@ import requests,os
 import hashlib
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Text
+import grequests
 
 
 
@@ -16,6 +17,11 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
+urls=["http://urls.yuxuanz.com/"];
+def activate_website(urls):
+    rs = (grequests.get(u) for each in urls)
+    grequests.map(rs)
+
 
 class WEBSITE(db.Model):
     __tablename__ = 'WEBSITE'
@@ -61,6 +67,7 @@ def verification():
 
 @app.route('/checkurl', methods=["POST"])
 def check():
+    store_link=[]
     link = request.form["website_url"]
     try:
         webchecking = requests.get(link,verify=False)
@@ -89,7 +96,7 @@ def check():
             db.session.commit()
             print("not already exist")
             all_users = WEBSITE.query.all()
-            for i in range(4):
+            for i in range(len(all_users)):
                 print(all_users[i].url + "\n")
             print("end")
         except:
