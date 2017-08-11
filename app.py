@@ -74,7 +74,10 @@ def check():
         db.session.add(data)
         db.session.commit()
 
-        print(all_users)
+        all_users = WEBSITE.query.all()
+        print(all_users.url)
+
+
         return "it is in the website"
     else:
 
@@ -84,8 +87,8 @@ def check():
             db.session.commit()
         except:
             print("all already exist")
-        all_users = WEBSITE.query.all()
-        print(all_users.url)
+            all_users = WEBSITE.query.all()
+            print(all_users[0].url)
 
 
 
