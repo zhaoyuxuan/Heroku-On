@@ -145,7 +145,8 @@
                     document.getElementById('website_input').style.backgroundColor = "#ff8a80";
 
                 } else {
-                    if(website_url[response.length -1]!='/'){
+                    if(website_url[website_url.length-1]!='/'){
+                      
                       response='/'+response;
                     }
                     document.getElementById('verification_input').value = website_url + response;
