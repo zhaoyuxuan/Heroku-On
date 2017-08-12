@@ -52,9 +52,9 @@ def generate():
         print(4)
         return code[:5]
 
-@app.route('/loaderio-c3b7a65412078c2e7124069686a0188f/')
+@app.route('/04122')
 def verification():
-    return "loaderio-c3b7a65412078c2e7124069686a0188f"
+    return "04122"
 
 @app.route("/test", methods=["POST"])
 def test():
