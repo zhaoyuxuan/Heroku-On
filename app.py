@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 # print("COW", os.environ['DATABASE_URL'])
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://piijiioaookene:819660e4205df62db5c480c00ab4f1590161aa21c7b546bea6544b92aa2fc2b7@ec2-23-21-220-32.compute-1.amazonaws.com:5432/dbct8eg95erdn7"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ucopmphmoaavjo:0c8f53188864f3d286d4839a205975b0bf7dc5fd07202590e47ce4a01aa8978d@ec2-107-20-250-195.compute-1.amazonaws.com:5432/d18irpdh4tn89i"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 urls=["http://urls.yuxuanz.com/"];
