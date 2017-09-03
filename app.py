@@ -11,12 +11,10 @@ import sys,json
 
 app = Flask(__name__)
 
-# print("COW", os.environ['DATABASE_URL'])
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ucopmphmoaavjo:0c8f53188864f3d286d4839a205975b0bf7dc5fd07202590e47ce4a01aa8978d@ec2-107-20-250-195.compute-1.amazonaws.com:5432/d18irpdh4tn89i"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
-urls=["http://urls.yuxuanz.com/"];
 
 
 
@@ -77,7 +75,6 @@ def check():
     try:
         webchecking = requests.get(link,verify=False)
     except:
-        print("request failed")
         return "it is not in the website"
     webcode=webchecking.text
     url=request.form["website"]
@@ -88,9 +85,7 @@ def check():
             db.session.add(data)
             db.session.commit()
             all_users = WEBSITE.query.all()
-            for i in range(len(all_users)):
-                print(all_users[i].url)
-            print("it is saved")
+
         except:
             db.session.rollback()
             print("2")
@@ -101,12 +96,11 @@ def check():
         db.session.close()
         return "it is in the website"
     else:
-        print("it is not in the website")
         return "it is not in the website"
 
 
-
-
+for i in range(len(all_users)):
+    print(all_users[i].url)
 
 if __name__ == "__main__":
     app.run(debug=True)
