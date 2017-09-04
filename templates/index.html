@@ -35,7 +35,7 @@
         <div class="col-md-6 col-xs-8">
             <div class="row">
                 <div id="verification">
-                    <span class="input_title" id="instruction">Verification by returning the special code on the following</span>
+                    <span class="input_title" id="instruction">Verify by returning the special code on the following</span>
                     <h1 class="input_bar">
                         <input class="input_field" id="verification_input" name="verification_input" type="text" disabled></input>
                     </h1>
@@ -44,6 +44,7 @@
         </div>
         <div class="col-md-3 col-xs-2"></div>
     </div>
+    <div class='text-center center-block' id = "alert_message" style = " color: #4D6864;font-size: 20px;font-family: 'Avenir Next'; position: fixed; width:100%"></div>
     <input type="image" src="static/images/submit_button.svg" onclick = "generatelink();" id = "submit_button" class = "center-block" />
     <input type="image" src="static/images/submit_button.svg" onclick = "checklink();" id = "verify_button" class = "center-block" style = "display:none;" />
     <br>
@@ -132,7 +133,7 @@
                     document.getElementById('website_input').style.backgroundColor = "#ff8a80";
 
                 } else {
-                    document.getElementById("instruction").innerHTML = "verification by returning"+' '+response+" on the following link";
+                    document.getElementById("instruction").innerHTML = "Verify by returning"+' '+response+" on the following link";
                     if(website_url[website_url.length-1]!='/'){
                       response='/'+response;
                     }
