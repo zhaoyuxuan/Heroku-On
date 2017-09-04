@@ -22,9 +22,11 @@ class WEBSITE(db.Model):
         return '<Name %r>' % self.url
 db.create_all()
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/generate',methods=["POST"])
 def generate():
@@ -38,10 +40,11 @@ def generate():
         code = hash_object.hexdigest()
         return code[:5]
 
+
 @app.route('/04122')
 def verification():
-
     return "04122"
+
 
 @app.route("/test", methods=["POST"])
 def test():
@@ -61,24 +64,19 @@ def check():
     link = request.form["website_url"]
 
     try:
-
         check = requests.get(link,verify=False)
-
     except:
-        
         return "it is not in the website"
+
     webcode = check.text
     url = request.form["website"]
     if (webcode in link):
 
         try:
-
             data = WEBSITE(url)
             db.session.add(data)
             db.session.commit()
-        
         except:
-
             db.session.rollback()
             
         all_users = WEBSITE.query.all()
@@ -86,6 +84,7 @@ def check():
         return "it is in the website"
     else:
         return "it is not in the website"
+
 
 if __name__ == "__main__":
     app.run()
