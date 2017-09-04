@@ -33,7 +33,6 @@ def index():
 def generate():
     link = request.form["input_url"]
     result=validators.url(link, public=False)
-
     if not result:
         return "not a website"
     else :
@@ -44,6 +43,7 @@ def generate():
 
 @app.route('/04122')
 def verification():
+
     return "04122"
 
 @app.route("/test", methods=["POST"])
@@ -62,7 +62,6 @@ def test():
 def check():
     store_link=[]
     link = request.form["website_url"]
-
     try:
         webchecking = requests.get(link,verify=False)
     except:

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Heroku On</title>
     <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -52,13 +50,10 @@
     <div class='text-center center-block' id = "alert_message" style = " color: #4D6864;font-size: 20px;font-family: 'Avenir Next'; position: fixed; width:100%"></div>
     <div class='text-center center-block' style = "color: #4D6864;font-family: 'Avenir Next'; position: fixed;bottom: 0; width: 100%;">Made by Yuxuan Zhao </div>
 </body>
-
-
 <style>
     #header {
         padding-top: 50px;
     }
-
     #title {
         color: #4D6864;
         font-family: "Avenir Next";
@@ -66,7 +61,6 @@
         font-weight: 100;
         letter-spacing: -4.5px;
     }
-
     #subtitle {
         font-family: "Avenir Next";
         font-size: 17px;
@@ -74,7 +68,6 @@
         letter-spacing: -1.1px;
         color: #4D6864;
     }
-
     #website {
         padding-top: 100px;
     }
@@ -83,7 +76,6 @@
         padding-top: 70px;
         padding-bottom: 100px;
     }
-
     .input_title {
         position: absolute;
         font-family: "Avenir Next";
@@ -93,7 +85,6 @@
         letter-spacing: -0.5px;
         /*margin-top: 10px;*/
     }
-
     .input_bar {
         width: 100%;
     }
@@ -112,7 +103,6 @@
         border: 0;
         outline: none !important;
     }
-
     #button {
         background-color: #4CAF50;
         /* Green */
@@ -125,15 +115,12 @@
         font-size: 16px;
     }
 </style>
-
-
 <script>
     function generatelink() {
         document.getElementById("website_input").disabled = true;
         var formData = new FormData();
         var website_url = document.getElementById('website_input').value;
         formData.append("input_url", website_url);
-
         $.ajax({
             type: "POST",
             url: "/generate",
@@ -152,18 +139,10 @@
                     document.getElementById('verification_input').value = website_url + response;
                     document.getElementById('second').style.display = "block";
                     document.getElementById('submit_button').style.display = "none";
-
                     document.getElementById('verify_button').style.display = "block";
-
-
                 }
-
             }
-
         });
-
-
-
     }
 
     function checklink() {
@@ -172,7 +151,6 @@
         var website = document.getElementById("website_input").value;
         formData.append("website_url", website_url);
         formData.append("website", website);
-
         $.ajax({
             type: "POST",
             url: "/checkurl",
