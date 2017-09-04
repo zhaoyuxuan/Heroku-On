@@ -37,7 +37,7 @@
         <div class="col-md-6 col-xs-8">
             <div class="row">
                 <div id="verification">
-                    <span class="input_title">Verification by returning the special code on the following link </span>
+                    <span class="input_title" id="instruction">Verification by returning the special code on the following</span>
                     <h1 class="input_bar">
                         <input class="input_field" id="verification_input" name="verification_input" type="text" disabled></input>
                     </h1>
@@ -145,8 +145,8 @@
                     document.getElementById('website_input').style.backgroundColor = "#ff8a80";
 
                 } else {
+                    document.getElementById("instruction").innerHTML="verification by returning"+response+"on the following link";
                     if(website_url[website_url.length-1]!='/'){
-                      
                       response='/'+response;
                     }
                     document.getElementById('verification_input').value = website_url + response;
@@ -173,8 +173,6 @@
         formData.append("website_url", website_url);
         formData.append("website", website);
 
-
-
         $.ajax({
             type: "POST",
             url: "/checkurl",
@@ -184,11 +182,9 @@
             success: function(response) {
               if (response==="it is in the website"){
                 document.getElementById("alert_message").innerHTML="Heroku is on!";
-                console.log("wow");
               }
               else{
                 document.getElementById("alert_message").innerHTML="verification failed";
-                console.log("verification failed")
               }
             }
         })
@@ -196,31 +192,4 @@
     }
 </script>
 
-
 </html>
-<!--
-
-#phoneBarTitle{
-    position: absolute;
-    font-family: "BG";
-    font-weight: 700;
-    font-size: 1.9em;
-    color: #463C70;
-    margin-top: 5px;
-}
-
-#phoneBar{
-    width: 100%;
-}
-
-#phoneInput{
-    width: 100%;
-    height: 100px;
-    font-family: "BG";
-    font-weight: 300;
-    font-size: 1.5em;
-    color: #463C70;
-    background-color: #F7F3FF;
-    border: 0;
-    outline: none !important;
-} -->

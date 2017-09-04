@@ -10,13 +10,10 @@ import sys,json
 
 
 app = Flask(__name__)
-
+db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ucopmphmoaavjo:0c8f53188864f3d286d4839a205975b0bf7dc5fd07202590e47ce4a01aa8978d@ec2-107-20-250-195.compute-1.amazonaws.com:5432/d18irpdh4tn89i"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-db = SQLAlchemy(app)
-
-
 
 class WEBSITE(db.Model):
     __tablename__ = 'WEBSITE'
@@ -41,13 +38,11 @@ def generate():
     result=validators.url(link, public=False)
 
     if not result:
-
         return "not a website"
     else :
         link=link.encode('utf-8')
         hash_object = hashlib.md5(link)
         code=hash_object.hexdigest()
-        print(4)
         return code[:5]
 
 @app.route('/04122')
@@ -61,7 +56,6 @@ def test():
     for i in range(len(all_users)):
         websites.append(all_users[i].url)
     rs = (grequests.get(u) for u in websites)
-    print(websites)
     grequests.map(rs)
 
     return "1"
@@ -79,19 +73,14 @@ def check():
     webcode=webchecking.text
     url=request.form["website"]
     if (webcode in link):
-        print(1)
         try:
             data=WEBSITE(url)
             db.session.add(data)
             db.session.commit()
             all_users = WEBSITE.query.all()
-
         except:
             db.session.rollback()
-            print("2")
             all_users = WEBSITE.query.all()
-            for i in range(len(all_users)):
-                print(all_users[i].url)
 
         db.session.close()
         return "it is in the website"
@@ -99,8 +88,5 @@ def check():
         return "it is not in the website"
 
 
-for i in range(len(all_users)):
-    print(all_users[i].url)
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
