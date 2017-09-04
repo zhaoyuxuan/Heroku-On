@@ -12,9 +12,6 @@ import sys,json
 app = Flask(__name__)
 db = SQLAlchemy(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ucopmphmoaavjo:0c8f53188864f3d286d4839a205975b0bf7dc5fd07202590e47ce4a01aa8978d@ec2-107-20-250-195.compute-1.amazonaws.com:5432/d18irpdh4tn89i"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-
 class WEBSITE(db.Model):
     __tablename__ = 'WEBSITE'
 
