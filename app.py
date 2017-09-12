@@ -11,7 +11,7 @@ import sys,json
 app = Flask(__name__)
 db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI']=os.environ['DATABASE_URL']
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True 
 
 class WEBSITE(db.Model):
     __tablename__ = 'WEBSITE'
